@@ -20,7 +20,7 @@ class Player extends Entity
     super(x, y);
 
     g = new Image("graphics/paddle.png");
-    g.scale = 6;
+    g.scale = 3;
 
     graphic = g;
 
@@ -60,11 +60,11 @@ class Player extends Entity
 
     //x = Input.mouseX - g.scaledWidth/2;
 
-    if (Input.check(Key.LEFT)) {
+    if (Input.check(Key.LEFT) && x > 0) {
       x -= 10;
     }
 
-    if (Input.check(Key.RIGHT)) {
+    if (Input.check(Key.RIGHT) && x + width < HXP.width) {
       x += 10;
     }
 

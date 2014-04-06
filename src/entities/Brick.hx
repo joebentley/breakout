@@ -9,12 +9,12 @@ class Brick extends Entity
 {
   public var g:Image;
 
-  public function new(x:Int, y:Int)
+  public function new(x:Int, y:Int, colour:String)
   {
     super(x, y);
     
-    g = new Image("graphics/brick.png");
-    g.scale = 6;
+    g = new Image("graphics/" + colour + "brick.png");
+    g.scale = 3;
     
     graphic = g;
 
