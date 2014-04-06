@@ -121,34 +121,39 @@ class Ball extends Entity
     if (e != null) {
       var b:Brick = cast(e, Brick);
 
-      // this is a very simple and clever method that I took from a stackexchange post:
-      // https://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
+      // check that brick isn't "dead"
 
-      var w:Float = (g.scaledWidth + b.g.scaledWidth)/2;
-      var h:Float = (g.scaledHeight + b.g.scaledHeight)/2;
-      var dx:Float = centerX - b.centerX;
-      var dy:Float = centerY - b.centerY;
+      if (!b.dead) {
+        // this is a very simple and clever method that I took from a stackexchange post:
+        // https://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
 
-      var wy:Float = w * dy;
-      var hx:Float = h * dx;
+        b.destroy(velocity);
 
-      if (wy > hx) {
-        if (wy > -hx) { // top
-          velocity.y = -velocity.y;
-        } else { // left
-          velocity.x = -velocity.x;
+        var w:Float = (g.scaledWidth + b.g.scaledWidth)/2;
+        var h:Float = (g.scaledHeight + b.g.scaledHeight)/2;
+        var dx:Float = centerX - b.centerX;
+        var dy:Float = centerY - b.centerY;
+
+        var wy:Float = w * dy;
+        var hx:Float = h * dx;
+
+        if (wy > hx) {
+          if (wy > -hx) { // top
+            velocity.y = -velocity.y;
+          } else { // left
+            velocity.x = -velocity.x;
+          }
+        } else {
+          if (wy > -hx) { // right
+            velocity.x = -velocity.x;
+          } else { // bottom
+            velocity.y = -velocity.y;
+          }
         }
-      } else {
-        if (wy > -hx) { // right
-          velocity.x = -velocity.x;
-        } else { // bottom
-          velocity.y = -velocity.y;
-        }
+
+        collisionSfx.play();
+
       }
-
-      collisionSfx.play();
-
-      b.destroy();
     }
 
     super.update();

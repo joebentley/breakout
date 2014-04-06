@@ -4,6 +4,8 @@ package entities;
 import com.haxepunk.Entity;
 import com.haxepunk.graphics.Image;
 
+import utils.Vector2;
+
 class Bullet extends Entity
 {
   var g:Image;
@@ -31,7 +33,9 @@ class Bullet extends Entity
     if (e != null) {
       var b:Brick = cast(e, Brick);
 
-      b.destroy();
+      var v:Vector2 = new Vector2(0, speed);
+
+      b.destroy(v);
 
       scene.remove(this);
     }
