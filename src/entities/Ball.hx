@@ -16,9 +16,9 @@ class Ball extends Entity
   var death:Sfx;
   
   var velocity:Vector2 = new Vector2();
-  var speed:Float = 7;
+  var speed:Float;
 
-  public function new(x:Int, y:Int)
+  public function new(x:Int, y:Int, speed:Float = 7)
   {
     super(x, y);
 
@@ -31,6 +31,9 @@ class Ball extends Entity
     g.scale = 4;
 
     graphic = g;
+
+
+    this.speed = speed;
 
     // give initial velocity (always same)
     velocity.x = speed/2;

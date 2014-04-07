@@ -33,7 +33,7 @@ class Bullet extends Entity
     if (e != null) {
       var b:Brick = cast(e, Brick);
 
-      var v:Vector2 = new Vector2(0, speed);
+      var v:Vector2 = new Vector2(0, -speed);
 
       b.destroy(v);
 
