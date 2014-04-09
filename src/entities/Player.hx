@@ -6,6 +6,7 @@ import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Key;
 import com.haxepunk.HXP;
 import com.haxepunk.Sfx;
+import com.haxepunk.utils.Joystick;
 
 import utils.Vector2;
 
@@ -28,9 +29,15 @@ class Player extends Entity
     type = "player";
 
     shotSfx = new Sfx("audio/shot.wav");
+
+
+    hasLaser = Game.hasLaser;
   }
 
-  
+
+  // upgrade flags
+  public var hasLaser:Bool;
+
   public var shots:Float = 100;
 
   var pause:Bool = true;
@@ -47,7 +54,7 @@ class Player extends Entity
     }
 
 
-    if (Input.pressed(Key.Z) && shots >= 20 && !pause) {
+    if (Input.pressed(Key.Z) && shots >= 20 && !pause && hasLaser) {      
       HXP.scene.add(new Bullet(x + width/2 - 2, y));
       shots -= 20;
       shotSfx.play();

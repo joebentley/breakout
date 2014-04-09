@@ -102,7 +102,7 @@ class Ball extends Entity
         y = p.y - g.scaledHeight;
 
         // Change x and y velocity depending on distance along paddle
-        velocity.x = (x - (p.x + p.width/2)) / 7;
+        velocity.x = ((x + width/2) - (p.x + p.width/2)) / 7;
 
         // ensure velocity.x < speed
         if (Math.abs(velocity.x) > speed) {
@@ -156,6 +156,7 @@ class Ball extends Entity
 
         collisionSfx.play();
 
+        Game.money += 100;
       }
     }
 

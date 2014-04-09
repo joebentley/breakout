@@ -52,6 +52,7 @@ class Brick extends Entity
       scene.remove(this);
     }
 
+
     super.update();
   }
 

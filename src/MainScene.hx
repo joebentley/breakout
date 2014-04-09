@@ -8,6 +8,8 @@ import entities.Ball;
 import entities.Brick;
 import entities.Bar;
 import entities.BarBackdrop;
+import entities.LivesText;
+import entities.MoneyText;
 
 import haxe.format.JsonParser;
 
@@ -17,8 +19,15 @@ class MainScene extends Scene
 {
   var music:Sfx;
   var starfield:Starfield = new Starfield();
-  
-  public var lives:Int = 3;
+   
+  var maxLevel:Int = 2;
+
+  var ballSpeed:Float;
+  var ballX:Int;
+  var ballY:Int;
+
+  var player:Player;
+
 
   public function new()
   {
@@ -28,40 +37,22 @@ class MainScene extends Scene
   }
 
 
-  var colourMap = ["green", "yellow", "red", "blue"];
-
-  var ballSpeed:Float;
 
   public override function begin()
   {
     add(new Player(100, 430));
 
-    add(new BarBackdrop(10, 10));
-    add(new Bar(11, 11));
-
-
-    var colour:Int = 0;
-    // Generate brick layout, cycling through colours
-    /*for (y in 1...7) {
-      for (x in 1...9) {
-        add(new Brick(x * 65, y * 30 + 30, colourMap[colour % 4]));
-        colour++;
-      }
-    }*/
-
-    var level = new LevelOne();
-    var levelOneData = JsonParser.parse(level.toString());
-
-    var bricks:Array<Dynamic> = levelOneData.bricks;
-
-    for (brick in bricks) {
-      add(new Brick(brick.x, brick.y, brick.colour));
+    // only show bar if have upgrade
+    if (Game.hasLaser) {
+      add(new BarBackdrop(10, 10));
+      add(new Bar(11, 11));
     }
 
-    ballSpeed = levelOneData.speed;
+    // add gui text
+    add(new LivesText(500, 10));
+    add(new MoneyText(500, 400));
 
-    add(new Ball(cast(HXP.width/2, Int), 250, ballSpeed));
-
+    loadNewLevel(Game.level);
 
     // music.play();
   }
@@ -70,16 +61,61 @@ class MainScene extends Scene
   {
     starfield.update();
 
+
+    // if no bricks are left in level, spawn the next level
+    var bricks:Array<Brick> = new Array<Brick>();
+    getType("brick", bricks);
+
+    // if no bricks left
+    if (bricks.length == 0) {
+
+      /*if (level > 1) {
+        var balls:Array<Ball> = new Array<Ball>();
+        getType("ball", balls);
+
+        for (ball in balls) {
+          remove(ball);
+        }
+      }
+
+      if (level > maxLevel) {
+        level = 1;
+      }*/
+
+      //loadNewLevel(level);
+
+      //level++;
+
+      HXP.scene = new UpgradeScene();
+    }
+
+
     super.update();
   }
 
   public function spawnNewBall() 
-  {
+  { 
     // spawn new ball if lives left
-    if (lives >= 0) {
-      add(new Ball(cast(HXP.width/2, Int), 250, ballSpeed));
+    if (--Game.lives >= 0) {
+      add(new Ball(ballX, ballY, ballSpeed));
+    }
+  }
+
+  public function loadNewLevel(levelNumber:Int)
+  {
+    var levelData = Assets.loadLevel(levelNumber);
+  
+    var bricks:Array<Dynamic> = levelData.bricks;
+
+    for (brick in bricks) {
+      add(new Brick(brick.x, brick.y, brick.colour));
     }
 
-    lives--;
+    ballSpeed = levelData.ball.speed;
+    ballX = levelData.ball.x;
+    ballY = levelData.ball.y;
+
+    add(new Ball(ballX, ballY, ballSpeed));
   }
+
 }
