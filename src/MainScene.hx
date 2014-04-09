@@ -90,6 +90,8 @@ class MainScene extends Scene
     }
 
 
+    Camera.update();
+
     super.update();
   }
 

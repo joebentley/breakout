@@ -14,6 +14,7 @@ class Ball extends Entity
   var g:Image;
   var collisionSfx:Sfx;
   var death:Sfx;
+  var boom:Sfx;
   
   var velocity:Vector2 = new Vector2();
   var speed:Float;
@@ -26,6 +27,7 @@ class Ball extends Entity
 
     collisionSfx = new Sfx("audio/tink.wav");
     death = new Sfx("audio/death.wav");
+    boom = new Sfx("audio/boom.wav");
 
     g = new Image("graphics/ball.png");
     g.scale = 4;
@@ -155,6 +157,11 @@ class Ball extends Entity
         }
 
         collisionSfx.play();
+
+        Camera.shakeX(1.5, 0.5, 5);
+        Camera.shakeY(1.5, 0.5, 5);
+
+        boom.play();
 
         Game.money += 100;
       }
