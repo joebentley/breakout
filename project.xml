@@ -2,10 +2,10 @@
 <project>
 	<meta title="breakout" package="com.example.app" version="1.0.0" company="" />
 
- 	<app file="Main" main="Main" path="bin" />
+ 	<app file="HaxePunk" main="Main" path="bin" />
 
 	<window fps="60" background="0x000000" />
-	<window width="640" height="480" resizable="true" unless="mobile" />
+	<window width="640" height="480" resizable="false" unless="mobile" />
 	<window fullscreen="true" if="mobile" />
 	<window orientation="landscape" vsync="true" antialiasing="0" if="cpp" />
 
@@ -17,6 +17,7 @@
 	<assets path="assets/audio" rename="audio" include="*.mp3" if="flash" />
 	<assets path="assets/audio" rename="audio" include="*.wav|*.ogg" unless="flash" />
 	<assets path="assets/font" rename="font" include="*.ttf" />
+	<assets path="assets/data" rename="data" include="*.json" />
 
 	<icon path="assets/HaxePunk.svg" />
 </project>

@@ -1,10 +1,12 @@
 
 
+import com.haxepunk.Json;
 
-@:file("assets/levels/one.json")
+
+@:file("assets/data/one.json")
 class LevelOne extends flash.utils.ByteArray {} 
 
-@:file("assets/levels/two.json")
+@:file("assets/data/two.json")
 class LevelTwo extends flash.utils.ByteArray {} 
 
 
@@ -22,7 +24,9 @@ class Assets {
         levelRaw = (new LevelTwo()).toString();
     }
 
-    var levelData = haxe.Json.parse(levelRaw);
+    //var levelData = haxe.Json.parse(levelRaw);
+
+    var levelData = Json.getJSON("data/two.json");
 
     return levelData;
 
