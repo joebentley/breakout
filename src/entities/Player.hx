@@ -67,11 +67,12 @@ class Player extends Entity
 
     //x = Input.mouseX - g.scaledWidth/2;
 
-    if (Input.check(Key.LEFT) && x > 0) {
+    if ((Input.check(Key.LEFT) || Input.check(Key.A)) && x > 0) {
       x -= 10;
     }
 
-    if (Input.check(Key.RIGHT) && x + width < HXP.width) {
+    if ((Input.check(Key.RIGHT) || Input.check(Key.D))
+         && x + width < HXP.width) {
       x += 10;
     }
 
