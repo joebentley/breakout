@@ -7,14 +7,15 @@ import com.haxepunk.graphics.Text;
 
 class TitleText extends Entity
 {
+  public var textString:Text;
 
   public function new(x:Int, y:Int, scale:Int, text:String)
   {
     super(x, y);
 
-    var t = new Text(text);
-    t.size = scale;
-    graphic = t;
+    textString = new Text(text);
+    textString.size = scale;
+    graphic = textString;
   }
 
 }

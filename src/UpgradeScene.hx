@@ -15,10 +15,14 @@ class UpgradeScene extends Scene
     super();
   }
 
+  var titleText:TitleText;
   
   override public function begin()
   {
-    add(new TitleText(100, 300, 20, "Press Z to buy laser for $1000"));
+    titleText = new TitleText(100, 300, 20, "Press Z to buy laser for $1000");
+    
+    add(titleText);
+    add(new TitleText(100, 400, 20, "Press return to continue"));
 
     // select next level
     Game.level++;
@@ -33,9 +37,10 @@ class UpgradeScene extends Scene
 
   override public function update()
   {
-    if (Input.pressed(Key.Z) && Game.money >= 1000) {
+    if (Input.pressed(Key.Z) && Game.hasLaser == false && Game.money >= 1000) {
       Game.hasLaser = true;
       Game.money -= 1000;
+      titleText.textString.text = "You have the laser!";
     }
 
     if (Input.check(Key.ENTER)) {

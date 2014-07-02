@@ -53,7 +53,7 @@ class MainScene extends Scene
     add(new MoneyText(500, 400));
 
     loadNewLevel(Game.level);
-
+    
     // music.play();
   }
 
